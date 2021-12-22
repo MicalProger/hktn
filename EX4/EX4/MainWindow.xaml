@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Background="Gray">
-        <Frame x:Name="MainFr" Margin="7" Background="Wheat"/>
+        <Frame x:Name="MainFr" Margin="7" Background="Wheat" NavigationUIVisibility="Hidden"/>
         
     </Grid>
 </Window>

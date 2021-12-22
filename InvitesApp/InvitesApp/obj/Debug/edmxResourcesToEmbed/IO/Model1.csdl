@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InvitesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="InvitesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Invite" EntityType="InvitesModel.Invite" />
+    <EntitySet Name="sysdiagrams" EntityType="InvitesModel.sysdiagrams" />
+    <EntitySet Name="User" EntityType="InvitesModel.User" />
+    <AssociationSet Name="FK_Invite_User" Association="InvitesModel.FK_Invite_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Invite" EntitySet="Invite" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Invite">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FreeCount" Type="Int32" />
+    <Property Name="TotalCount" Type="Int32" />
+    <Property Name="Focus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateTime" Type="DateTime" Precision="3" />
+    <Property Name="AuthorId" Type="Int32" />
+    <Property Name="Descr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="InvitesModel.FK_Invite_User" FromRole="Invite" ToRole="User" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Invite" Relationship="InvitesModel.FK_Invite_User" FromRole="User" ToRole="Invite" />
+    <Property Name="TagsStory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Invite_User">
+    <End Type="InvitesModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="InvitesModel.Invite" Role="Invite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invite">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

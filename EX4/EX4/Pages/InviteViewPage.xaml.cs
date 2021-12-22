@@ -36,8 +36,13 @@ namespace EX4.Pages
             {
                 var n = o as TextBox;
                 if (n == null) continue;
-                n.IsEnabled = isNew;
+                n.IsReadOnly = !isNew;
             }
+        }
+
+        private void OnLeave(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

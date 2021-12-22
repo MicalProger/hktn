@@ -16,10 +16,13 @@
                         <RowDefinition/>
                         <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
-                    <ListView Margin="7">
+                    <ListView Margin="7" MouseDoubleClick="OnViewInvite" Name="InvitesLW">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel/>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" Margin="5"/>
+                                    <TextBlock Text="{Binding Focus}" Margin="5"/>
+                                </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

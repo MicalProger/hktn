@@ -24,11 +24,19 @@ namespace EX4.Pages
         public StartPage()
         {
             InitializeComponent();
+            Invite i = new Invite() { Name = "Test name", DateTime = DateTime.Now, Location = "Here", Focus="focsuing" };
+            InvitesLW.ItemsSource = new List<Invite>() { i };
         }
 
         private void AddMeeting(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new InventViewPage(new Invite(), true));
+        }
+
+
+        private void OnViewInvite(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new InventViewPage((sender as ListView).SelectedItem as Invite, false));
         }
     }
 }

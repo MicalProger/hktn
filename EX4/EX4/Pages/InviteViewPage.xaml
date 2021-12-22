@@ -9,7 +9,11 @@
       Title="InventViewPage">
 
     <Grid>
-        <StackPanel x:Name="MainSp" Width="400" HorizontalAlignment="Left">
+        <StackPanel>
+            <Button Click="OnLeave" Content="Назад" HorizontalAlignment="Left" Margin="7"/>
+            
+        <ScrollViewer>
+            <StackPanel x:Name="MainSp" Width="400" HorizontalAlignment="Left">
             <TextBlock Text="Наззвание события" Margin="7"/>
             <TextBox Text="{Binding Name}" Margin="7"/>
             <TextBlock Text="Направление" Margin="7"/>
@@ -23,6 +27,8 @@
             <TextBlock Text="Дополнительно" Margin="7"/>
             <TextBox Text="{Binding Descr}" Margin="7" TextWrapping="Wrap"/>
             <Button Content="Принять/сохранить" Margin="7"/>
+        </StackPanel>
+        </ScrollViewer>
         </StackPanel>
     </Grid>
 </Page>

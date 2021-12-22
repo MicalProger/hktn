@@ -1,0 +1,51 @@
+﻿<Page x:Class="InvitesApp.Pages.StartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InvitesApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StartPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="1">
+            <Button Margin="7" Width="100" Click="UpdateTag" Content="Поиск по тегу"/>
+
+            <TextBox x:Name="TagTB" Margin="7" VerticalContentAlignment="Center"/>
+        </DockPanel>
+        <TextBlock Text="{Binding UIName}" Margin="7"/>
+        <TabControl Grid.Row="2" Margin="7">
+            <TabItem Header="Доступные">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <ListView Margin="7" MouseDoubleClick="OnViewInvite" Name="InvitesLW">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" Margin="5"/>
+                                    <TextBlock Text="{Binding Focus}" Margin="5"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <DockPanel Grid.Row="1" LastChildFill="False">
+                        <Button Click="AddMeeting" Margin="7" Content="Создать событие" DockPanel.Dock="Left"/>
+                        <Button Margin="7" Content="В закладки" DockPanel.Dock="Right"/>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="В закладках">
+                
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>
