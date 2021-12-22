@@ -1,6 +1,4 @@
-﻿
-using EX4.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,19 +11,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using EX4.Pages;
 using System.Windows.Shapes;
 
-namespace EX4
+namespace EX4.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для StartPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class StartPage : Page
     {
-        public MainWindow()
+        public StartPage()
         {
             InitializeComponent();
-            MainFr.Navigate(new StartPage());
+        }
+
+        private void AddMeeting(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new InventViewPage(new Invite(), true));
         }
     }
 }
+

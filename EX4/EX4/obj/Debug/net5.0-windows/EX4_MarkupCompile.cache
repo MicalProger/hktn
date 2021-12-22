@@ -1,5 +1,5 @@
 ﻿EX4
-1.0.0.0
+
 
 winexe
 C#
@@ -12,7 +12,7 @@ TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\User\source\repos\hktn\EX4\EX4\App.xaml
 3-287872689
 
-8-1082027716
+6-453737830
 193-1891726104
 MainWindow.xaml;Pages\InviteViewPage.xaml;Pages\StartPage.xaml;
 

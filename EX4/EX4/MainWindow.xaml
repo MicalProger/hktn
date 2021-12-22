@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:EX4"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+    <Grid Background="Gray">
+        <Frame x:Name="MainFr" Margin="7" Background="Wheat"/>
+        
     </Grid>
 </Window>
