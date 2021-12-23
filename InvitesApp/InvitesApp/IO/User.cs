@@ -18,6 +18,7 @@ namespace InvitesApp.IO
         public User()
         {
             this.Invite = new HashSet<Invite>();
+            this.Bookmark = new HashSet<Bookmark>();
         }
     
         public int Id { get; set; }
@@ -27,5 +28,7 @@ namespace InvitesApp.IO
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invite> Invite { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bookmark> Bookmark { get; set; }
     }
 }

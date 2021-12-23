@@ -8,6 +8,15 @@
       <End Role="User" EntitySet="User" />
       <End Role="Invite" EntitySet="Invite" />
     </AssociationSet>
+    <EntitySet Name="Bookmark" EntityType="InvitesModel.Bookmark" />
+    <AssociationSet Name="FK_Bookmark_Invite" Association="InvitesModel.FK_Bookmark_Invite">
+      <End Role="Invite" EntitySet="Invite" />
+      <End Role="Bookmark" EntitySet="Bookmark" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bookmark_User" Association="InvitesModel.FK_Bookmark_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Bookmark" EntitySet="Bookmark" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Invite">
     <Key>
@@ -23,6 +32,7 @@
     <Property Name="AuthorId" Type="Int32" />
     <Property Name="Descr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="User" Relationship="InvitesModel.FK_Invite_User" FromRole="Invite" ToRole="User" />
+    <NavigationProperty Name="Bookmark" Relationship="InvitesModel.FK_Bookmark_Invite" FromRole="Invite" ToRole="Bookmark" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -43,6 +53,7 @@
     <Property Name="Tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Invite" Relationship="InvitesModel.FK_Invite_User" FromRole="User" ToRole="Invite" />
     <Property Name="TagsStory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bookmark" Relationship="InvitesModel.FK_Bookmark_User" FromRole="User" ToRole="Bookmark" />
   </EntityType>
   <Association Name="FK_Invite_User">
     <End Type="InvitesModel.User" Role="User" Multiplicity="0..1" />
@@ -53,6 +64,40 @@
       </Principal>
       <Dependent Role="Invite">
         <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Bookmark">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="InviteId" Type="Int32" />
+    <NavigationProperty Name="Invite" Relationship="InvitesModel.FK_Bookmark_Invite" FromRole="Bookmark" ToRole="Invite" />
+    <NavigationProperty Name="User" Relationship="InvitesModel.FK_Bookmark_User" FromRole="Bookmark" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_Bookmark_Invite">
+    <End Type="InvitesModel.Invite" Role="Invite" Multiplicity="0..1" />
+    <End Type="InvitesModel.Bookmark" Role="Bookmark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invite">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bookmark">
+        <PropertyRef Name="InviteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bookmark_User">
+    <End Type="InvitesModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="InvitesModel.Bookmark" Role="Bookmark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bookmark">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

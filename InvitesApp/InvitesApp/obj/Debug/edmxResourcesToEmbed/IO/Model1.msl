@@ -37,5 +37,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Bookmark">
+      <EntityTypeMapping TypeName="InvitesModel.Bookmark">
+        <MappingFragment StoreEntitySet="Bookmark">
+          <ScalarProperty Name="InviteId" ColumnName="InviteId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

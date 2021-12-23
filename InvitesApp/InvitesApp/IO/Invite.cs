@@ -14,6 +14,12 @@ namespace InvitesApp.IO
     
     public partial class Invite
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Invite()
+        {
+            this.Bookmark = new HashSet<Bookmark>();
+        }
+    
         public int Id { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }
@@ -25,5 +31,7 @@ namespace InvitesApp.IO
         public string Descr { get; set; }
     
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bookmark> Bookmark { get; set; }
     }
 }

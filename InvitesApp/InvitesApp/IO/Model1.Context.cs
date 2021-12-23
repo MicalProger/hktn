@@ -28,5 +28,6 @@ namespace InvitesApp.IO
         public virtual DbSet<Invite> Invite { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Bookmark> Bookmark { get; set; }
     }
 }

@@ -13,7 +13,7 @@
         <StackPanel>
             <Button Click="OnLeave" Content="Назад" HorizontalAlignment="Left" Margin="7"/>
             
-            <StackPanel x:Name="MainSp" Width="400" HorizontalAlignment="Left">
+            <StackPanel x:Name="MainSp" HorizontalAlignment="Stretch" >
             <TextBlock Text="Название события" Margin="7"/>
             <TextBox Text="{Binding Name}" Margin="7"/>
             <TextBlock Text="Направление" Margin="7"/>
@@ -21,12 +21,10 @@
             <TextBlock Text="Место проведения" Margin="7"/>
                     <TextBox Text="{Binding Location}" Margin="7"/>
             <TextBlock Text="Дата и время" Margin="7"/>
-            <TextBox Text="{Binding DateTime}" Margin="7"/>
-            <TextBlock Text="Автор" Margin="7"/>
-            <TextBox Text="{Binding User.Name}" Margin="7"/>
-            <TextBlock Text="Дополнительно" Margin="7"/>
-            <TextBox Text="{Binding Descr}" Margin="7" TextWrapping="Wrap"/>
-            <Button Content="Принять/сохранить" Margin="7"/>
+                    <DatePicker SelectedDate="{Binding DateTime}" Margin="7"/>
+                    <TextBlock Text="Дополнительно" Margin="7"/>
+            <TextBox Text="{Binding Descr}" Height="50" Margin="7" TextWrapping="Wrap"/>
+            <Button Content="Принять/сохранить" Margin="7" HorizontalAlignment="Left" Width="200"/>
         </StackPanel>
         </StackPanel>
         </ScrollViewer>

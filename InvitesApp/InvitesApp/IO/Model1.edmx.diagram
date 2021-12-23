@@ -9,6 +9,9 @@
         <EntityTypeShape EntityType="InvitesModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="InvitesModel.User" Width="1.5" PointX="0.75" PointY="1.5" />
         <AssociationConnector Association="InvitesModel.FK_Invite_User" />
+        <EntityTypeShape EntityType="InvitesModel.Bookmark" Width="1.5" PointX="5.25" PointY="1.625" />
+        <AssociationConnector Association="InvitesModel.FK_Bookmark_Invite" />
+        <AssociationConnector Association="InvitesModel.FK_Bookmark_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

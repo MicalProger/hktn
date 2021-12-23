@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="InviteId" Type="int" />
+        </EntityType>
         <EntityType Name="Invite">
           <Key>
             <PropertyRef Name="Id" />
@@ -38,6 +46,30 @@
           <Property Name="Tags" Type="nvarchar(max)" />
           <Property Name="TagsStory" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK_Bookmark_Invite">
+          <End Role="Invite" Type="Self.Invite" Multiplicity="0..1" />
+          <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invite">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="InviteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookmark_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Invite_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Invite" Type="Self.Invite" Multiplicity="*" />
@@ -82,9 +114,18 @@
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="StoreContainer">
+          <EntitySet Name="Bookmark" EntityType="Self.Bookmark" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invite" EntityType="Self.Invite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bookmark_Invite" Association="Self.FK_Bookmark_Invite">
+            <End Role="Invite" EntitySet="Invite" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookmark_User" Association="Self.FK_Bookmark_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
           <AssociationSet Name="FK_Invite_User" Association="Self.FK_Invite_User">
             <End Role="User" EntitySet="User" />
             <End Role="Invite" EntitySet="Invite" />
@@ -102,6 +143,15 @@
             <End Role="User" EntitySet="User" />
             <End Role="Invite" EntitySet="Invite" />
           </AssociationSet>
+          <EntitySet Name="Bookmark" EntityType="InvitesModel.Bookmark" />
+          <AssociationSet Name="FK_Bookmark_Invite" Association="InvitesModel.FK_Bookmark_Invite">
+            <End Role="Invite" EntitySet="Invite" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookmark_User" Association="InvitesModel.FK_Bookmark_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Bookmark" EntitySet="Bookmark" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Invite">
           <Key>
@@ -117,6 +167,7 @@
           <Property Name="AuthorId" Type="Int32" />
           <Property Name="Descr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="InvitesModel.FK_Invite_User" FromRole="Invite" ToRole="User" />
+          <NavigationProperty Name="Bookmark" Relationship="InvitesModel.FK_Bookmark_Invite" FromRole="Invite" ToRole="Bookmark" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -137,6 +188,7 @@
           <Property Name="Tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Invite" Relationship="InvitesModel.FK_Invite_User" FromRole="User" ToRole="Invite" />
           <Property Name="TagsStory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bookmark" Relationship="InvitesModel.FK_Bookmark_User" FromRole="User" ToRole="Bookmark" />
         </EntityType>
         <Association Name="FK_Invite_User">
           <End Type="InvitesModel.User" Role="User" Multiplicity="0..1" />
@@ -147,6 +199,40 @@
             </Principal>
             <Dependent Role="Invite">
               <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="InviteId" Type="Int32" />
+          <NavigationProperty Name="Invite" Relationship="InvitesModel.FK_Bookmark_Invite" FromRole="Bookmark" ToRole="Invite" />
+          <NavigationProperty Name="User" Relationship="InvitesModel.FK_Bookmark_User" FromRole="Bookmark" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Bookmark_Invite">
+          <End Type="InvitesModel.Invite" Role="Invite" Multiplicity="0..1" />
+          <End Type="InvitesModel.Bookmark" Role="Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invite">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="InviteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookmark_User">
+          <End Type="InvitesModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="InvitesModel.Bookmark" Role="Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -188,6 +274,15 @@
                 <ScalarProperty Name="TagsStory" ColumnName="TagsStory" />
                 <ScalarProperty Name="Tags" ColumnName="Tags" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookmark">
+            <EntityTypeMapping TypeName="InvitesModel.Bookmark">
+              <MappingFragment StoreEntitySet="Bookmark">
+                <ScalarProperty Name="InviteId" ColumnName="InviteId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

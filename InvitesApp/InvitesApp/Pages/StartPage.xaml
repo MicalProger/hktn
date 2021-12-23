@@ -10,16 +10,22 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="80"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1">
+            
         <DockPanel Grid.Row="1">
-            <Button Margin="7" Width="100" Click="UpdateTag" Content="Поиск по тегу"/>
-
-            <TextBox x:Name="TagTB" Margin="7" VerticalContentAlignment="Center"/>
+                <Button Margin="7" Height="40" Width="100" Click="UpdateTag" Content="Поиск по тегу"/>
+                <TextBox x:Name="TagTB" Margin="7" VerticalContentAlignment="Center"/>
         </DockPanel>
+            <DockPanel HorizontalAlignment="Left">
+                <CheckBox Click="UpdateDate" x:Name="GetDateCB" HorizontalAlignment="Center"  Margin="5">Учитывать дату</CheckBox>
+                <DatePicker SelectedDateChanged="UpdateDateVal" Name="DateDP" IsEnabled="False" Margin="5"/>
+            </DockPanel>
+        </StackPanel>
         <TextBlock Text="{Binding UIName}" Margin="7"/>
-        <TabControl Grid.Row="2" Margin="7">
+        <TabControl Grid.Row="2" Margin="7" x:Name="Tabs">
             <TabItem Header="Доступные">
 
                 <Grid>
@@ -39,12 +45,32 @@
                     </ListView>
                     <DockPanel Grid.Row="1" LastChildFill="False">
                         <Button Click="AddMeeting" Margin="7" Content="Создать событие" DockPanel.Dock="Left"/>
-                        <Button Margin="7" Content="В закладки" DockPanel.Dock="Right"/>
+                        <Button Click="AddBookMark" Margin="7" Content="В закладки" DockPanel.Dock="Right"/>
                     </DockPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="В закладках">
-                
+            <TabItem Header="В закладках" Height="22" VerticalAlignment="Bottom">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="34*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="35"/>
+                    </Grid.RowDefinitions>
+                    <ListView Margin="7" MouseDoubleClick="OnViewInvite" Name="BookmardLW" Grid.ColumnSpan="2" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" Margin="5"/>
+                                    <TextBlock Text="{Binding Focus}" Margin="5"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button Grid.Row="1" HorizontalAlignment="Left" Content="Удалить из закладок" Margin="7,7,0,7" Click="OnRemoveBM" Grid.ColumnSpan="2"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
